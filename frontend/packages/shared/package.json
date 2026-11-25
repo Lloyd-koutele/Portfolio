@@ -1,0 +1,25 @@
+{
+  "name": "@portfolio/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Code shared by the book and the administration: PageRenderer, page types, HTTP client, French texts, book viewer.",
+  "dependencies": {
+    "@fontsource-variable/fira-code": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/lora": "^5.3.0",
+    "@fontsource-variable/merriweather": "^5.3.0",
+    "@fontsource-variable/montserrat": "^5.3.0",
+    "@fontsource-variable/open-sans": "^5.3.0",
+    "@fontsource-variable/playfair-display": "^5.3.0",
+    "@fontsource-variable/roboto": "^5.3.0",
+    "@fontsource/poppins": "^5.3.0",
+    "react-pageflip": "^2.0.3"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.108.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.6"
+  }
+}

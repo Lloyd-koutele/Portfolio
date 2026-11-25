@@ -1,0 +1,55 @@
+# Traefik dynamic configuration (Go template: domain names come from the container environment).
+#   PUBLIC_HOST  the book            ADMIN_HOST  the administration
+# Local certificates come from ./certs (traefik/generate-local-certs.sh, mkcert). With ACME_EMAIL set, real
+# domains get Let's Encrypt certificates instead.
+http:
+  routers:
+    public:
+      rule: Host(`{{ env "PUBLIC_HOST" }}`)
+      entryPoints: [websecure]
+      service: frontend
+      middlewares: [secure-transport]
+      tls: {{ if env "ACME_EMAIL" }}{ certResolver: letsencrypt }{{ else }}{}{{ end }}
+    admin:
+      rule: Host(`{{ env "ADMIN_HOST" }}`)
+      entryPoints: [websecure]
+      service: frontend
+      middlewares: [secure-transport]
+      tls: {{ if env "ACME_EMAIL" }}{ certResolver: letsencrypt }{{ else }}{}{{ end }}
+    # Any other name (localhost, IP address): Nginx serves both apps.
+    fallback:
+      rule: PathPrefix(`/`)
+      priority: 1
+      entryPoints: [websecure]
+      service: frontend
+      middlewares: [secure-transport]
+      tls: {}
+
+  middlewares:
+    secure-transport:
+      headers:
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        browserXssFilter: false
+        contentTypeNosniff: true
+
+  services:
+    frontend:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: http://frontend:80
+
+tls:
+  options:
+    default:
+      minVersion: VersionTLS12
+      sniStrict: false
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/local.pem
+        keyFile: /certs/local-key.pem
+  certificates:
+    - certFile: /certs/local.pem
+      keyFile: /certs/local-key.pem

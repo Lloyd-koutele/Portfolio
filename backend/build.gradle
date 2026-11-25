@@ -1,0 +1,99 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.5.16'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.portfolio'
+version = '0.1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springModulithVersion', '1.4.14')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.modulith:spring-modulith-bom:${springModulithVersion}"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    implementation 'com.bucket4j:bucket4j_jdk17-core:8.22.0'
+    implementation 'org.apache.tika:tika-core:4.2.0'
+    implementation 'com.github.ua-parser:uap-java:1.6.1'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.17'
+    implementation 'org.springframework.modulith:spring-modulith-starter-core'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+checkstyle {
+    toolVersion = '10.26.1'
+    configFile = file('config/checkstyle/checkstyle.xml')
+    maxWarnings = 0
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    finalizedBy tasks.named('jacocoTestReport')
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = true
+        html.required = true
+    }
+}
+
+// Critical services (authentication, pages, visits) must stay above 80 % line coverage.
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            includes = [
+                'com.portfolio.auth.internal.AuthService',
+                'com.portfolio.auth.internal.JwtService',
+                'com.portfolio.page.internal.PageService',
+                'com.portfolio.page.internal.PageContentValidator',
+                'com.portfolio.visit.internal.VisitRecorder',
+                'com.portfolio.visit.internal.IpAnonymizer',
+            ]
+            limit {
+                counter = 'LINE'
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('jacocoTestCoverageVerification')
+}

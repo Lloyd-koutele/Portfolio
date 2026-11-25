@@ -1,0 +1,99 @@
+# `docker compose up -d --build` starts PostgreSQL, the Spring Boot API, Nginx (both apps) and Traefik (HTTPS).
+# Only Traefik is published: HTTP_PORT redirects to HTTPS_PORT. Nginx and the API stay on the internal network.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - portfolio-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?set ADMIN_EMAIL in .env}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      TRACKING_SALT: ${TRACKING_SALT:?set TRACKING_SALT in .env}
+      APP_ORIGIN: ${APP_ORIGIN:-https://portfolio-public,https://portfolio-admin,https://localhost}
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      # Nginx and the host proxy sit on private networks; X-Forwarded-For is only read from them.
+      TRUSTED_PROXIES: ${TRUSTED_PROXIES:-10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.1}
+      DEMO_CONTENT: ${DEMO_CONTENT:-true}
+      MEDIA_MAX_VIDEO_MB: ${MEDIA_MAX_VIDEO_MB:-100}
+      # "Continuer avec Google" (empty = button hidden); see .env.example.
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-https://portfolio-admin/api/auth/google/callback}
+      ADMIN_SITE_URL: ${ADMIN_SITE_URL:-https://portfolio-admin}
+      OPENAPI_ENABLED: "false"
+      UPLOAD_DIR: /data/uploads
+    volumes:
+      - portfolio-uploads:/data/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Public site address for the administration's "Voir le site" link ("/" when both share a domain).
+        PUBLIC_SITE_URL: ${PUBLIC_SITE_URL:-/}
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      # "all", or a comma-separated list of addresses / CIDR allowed to reach /admin and the admin API.
+      ADMIN_ALLOW_FROM: ${ADMIN_ALLOW_FROM:-all}
+      # One domain for readers, one for the administration (any other name serves both).
+      PUBLIC_HOST: ${PUBLIC_HOST:-portfolio-public}
+      ADMIN_HOST: ${ADMIN_HOST:-portfolio-admin}
+      # Largest upload accepted by Nginx on the admin domain: keep it above MEDIA_MAX_VIDEO_MB.
+      MEDIA_MAX_BODY: ${MEDIA_MAX_BODY:-110m}
+
+  traefik:
+    image: traefik:v3.7.19
+    restart: unless-stopped
+    depends_on:
+      frontend:
+        condition: service_healthy
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:-portfolio-public}
+      ADMIN_HOST: ${ADMIN_HOST:-portfolio-admin}
+      # Set for real public domains to get Let's Encrypt certificates; empty = local certificates in traefik/certs.
+      ACME_EMAIL: ${ACME_EMAIL:-}
+      TRAEFIK_CERTIFICATESRESOLVERS_LETSENCRYPT_ACME_EMAIL: ${ACME_EMAIL:-}
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/dynamic:/etc/traefik/dynamic:ro
+      - ./traefik/certs:/certs:ro
+      - portfolio-acme:/letsencrypt
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    healthcheck:
+      test: ["CMD", "traefik", "healthcheck", "--ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  portfolio-db:
+  portfolio-uploads:
+  portfolio-acme:

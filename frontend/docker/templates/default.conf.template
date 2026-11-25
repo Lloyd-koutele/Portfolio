@@ -1,0 +1,64 @@
+# Production front door (template: ${PUBLIC_HOST} and ${ADMIN_HOST} are filled in at container start).
+# HTTPS is terminated by the host (Caddy, Traefik or the hosting provider) in front of this server.
+#
+#   ${PUBLIC_HOST}   the newspaper: reading app only, public API; no administration at all
+#   ${ADMIN_HOST}    the newsroom: administration app and every API, optionally restricted (ADMIN_ALLOW_FROM)
+#   any other name   both, under / and /admin/ (localhost, IP address)
+
+# The real client address comes from the host proxy, trusted only on private networks.
+set_real_ip_from 10.0.0.0/8;
+set_real_ip_from 172.16.0.0/12;
+set_real_ip_from 192.168.0.0/16;
+set_real_ip_from 127.0.0.1;
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+
+map $http_x_forwarded_proto $forwarded_proto {
+    default $http_x_forwarded_proto;
+    ''      $scheme;
+}
+
+server {
+    listen 80;
+    server_name ${PUBLIC_HOST};
+    include /etc/nginx/snippets/common.conf;
+    # Readers send nothing bigger than a visit.
+    client_max_body_size 1m;
+
+    # The administration does not exist on the public domain.
+    location /admin { return 404; }
+    location /api/admin/ { return 404; }
+    location /api/auth/ { return 404; }
+
+    include /etc/nginx/snippets/api.conf;
+    include /etc/nginx/snippets/book-app.conf;
+}
+
+server {
+    listen 80;
+    server_name ${ADMIN_HOST};
+    include /etc/nginx/snippets/common.conf;
+    # Media uploads (videos up to MEDIA_MAX_VIDEO_MB); keep it a little above that limit.
+    client_max_body_size ${MEDIA_MAX_BODY};
+    include /etc/nginx/snippets/admin-access.conf;
+
+    location = / { return 302 /admin/; }
+
+    include /etc/nginx/snippets/admin-api.conf;
+    include /etc/nginx/snippets/api.conf;
+    include /etc/nginx/snippets/admin-app.conf;
+
+    # The reading app is not served on the administration domain.
+    location / { return 404; }
+}
+
+server {
+    listen 80 default_server;
+    server_name _;
+    include /etc/nginx/snippets/common.conf;
+    client_max_body_size ${MEDIA_MAX_BODY};
+    include /etc/nginx/snippets/admin-api.conf;
+    include /etc/nginx/snippets/api.conf;
+    include /etc/nginx/snippets/admin-app.conf;
+    include /etc/nginx/snippets/book-app.conf;
+}

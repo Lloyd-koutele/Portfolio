@@ -1,0 +1,20 @@
+# Test-only values; never used outside the test suite.
+app:
+  origins: https://portfolio-public,https://portfolio-admin
+  auth:
+    jwt-secret: test-secret-key-for-integration-tests-only-0123456789
+    cookie-secure: true
+    admin-email: admin@test.local
+    admin-password: correct-horse-battery
+    google:
+      client-id: test-client-id.apps.googleusercontent.com
+      client-secret: test-client-secret
+      redirect-uri: https://localhost/api/auth/google/callback
+      admin-url: https://portfolio-admin
+  tracking:
+    salt: test-tracking-salt-0123456789
+    trusted-proxies: 10.0.0.1
+  demo-content: false
+  media:
+    max-video-mb: 1
+  upload-dir: ${java.io.tmpdir}/portfolio-test-uploads

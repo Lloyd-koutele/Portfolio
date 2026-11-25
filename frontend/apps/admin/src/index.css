@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+@import '../../../packages/shared/src/theme.css';
+/* Tailwind must also scan the shared components for class names. */
+@source '../../../packages/shared/src';
+
+/* ---------------------------------------------------------------- Home page and login (dark, orange glow) */
+.night-sky {
+  background-color: var(--color-backdrop);
+  background-image:
+    radial-gradient(60rem 40rem at 15% -10%, rgb(238 125 31 / 0.22), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 30%, rgb(201 98 14 / 0.16), transparent 60%),
+    radial-gradient(40rem 30rem at 40% 110%, rgb(238 125 31 / 0.14), transparent 60%),
+    radial-gradient(1px 1px at 20% 30%, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1px 1px at 70% 15%, rgb(255 255 255 / 0.4), transparent),
+    radial-gradient(1px 1px at 85% 65%, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1px 1px at 35% 80%, rgb(255 255 255 / 0.3), transparent);
+  background-attachment: fixed;
+  color: #fff;
+}
+
+.glass {
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.03));
+  border: 1px solid rgb(255 255 255 / 0.14);
+  box-shadow:
+    0 20px 50px rgb(0 0 0 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.accent-glow {
+  box-shadow:
+    0 0 0 1px rgb(238 125 31 / 0.45),
+    0 0 45px rgb(238 125 31 / 0.45);
+}
+
+.caret::after {
+  content: '|';
+  margin-left: 0.1em;
+  color: var(--color-accent);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Skills orbit: chips sit on turning rings and spin the other way, so they stay upright. */
+.orbit-ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 9999px;
+  animation: orbit-spin var(--duration, 60s) linear infinite;
+}
+
+.orbit-item {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.orbit-item > span {
+  display: inline-block;
+  animation: orbit-spin var(--duration, 60s) linear infinite reverse;
+}
+
+@keyframes orbit-spin {
+  to {
+    rotate: 360deg;
+  }
+}

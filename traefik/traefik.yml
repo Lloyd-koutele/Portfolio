@@ -1,0 +1,49 @@
+# Traefik static configuration: the HTTPS front door, in front of Nginx (service "frontend").
+# No Docker socket is mounted: routes come from the files in /etc/traefik/dynamic only.
+
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  websecure:
+    address: ":443"
+    http:
+      tls: {}
+  ping:
+    address: ":8082"
+
+ping:
+  entryPoint: ping
+
+providers:
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+
+# Optional real certificates (public domains only): set ACME_EMAIL, see dynamic/routes.yml.
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
+
+api:
+  dashboard: false
+
+log:
+  level: INFO
+
+accessLog:
+  fields:
+    headers:
+      defaultMode: drop

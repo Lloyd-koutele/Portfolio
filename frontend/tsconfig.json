@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/shared" },
+    { "path": "./apps/book" },
+    { "path": "./apps/admin" },
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.e2e.json" }
+  ]
+}

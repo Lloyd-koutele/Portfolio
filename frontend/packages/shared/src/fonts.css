@@ -1,0 +1,35 @@
+/* Fonts offered by the page editor, bundled with the apps (no call to an outside font service).
+   Variable fonts cover every weight from one file; each also brings its italic. */
+@import '@fontsource-variable/inter/wght-italic.css';
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/montserrat/wght-italic.css';
+@import '@fontsource-variable/roboto';
+@import '@fontsource-variable/roboto/wght-italic.css';
+@import '@fontsource-variable/open-sans';
+@import '@fontsource-variable/open-sans/wght-italic.css';
+@import '@fontsource-variable/playfair-display';
+@import '@fontsource-variable/playfair-display/wght-italic.css';
+@import '@fontsource-variable/lora';
+@import '@fontsource-variable/lora/wght-italic.css';
+@import '@fontsource-variable/merriweather';
+@import '@fontsource-variable/merriweather/wght-italic.css';
+@import '@fontsource-variable/fira-code';
+/* Poppins has no variable version: one file per weight, upright and italic. */
+@import '@fontsource/poppins/100.css';
+@import '@fontsource/poppins/100-italic.css';
+@import '@fontsource/poppins/200.css';
+@import '@fontsource/poppins/200-italic.css';
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/300-italic.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/400-italic.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/500-italic.css';
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/600-italic.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/poppins/700-italic.css';
+@import '@fontsource/poppins/800.css';
+@import '@fontsource/poppins/800-italic.css';
+@import '@fontsource/poppins/900.css';
+@import '@fontsource/poppins/900-italic.css';

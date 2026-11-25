@@ -1,0 +1,89 @@
+spring:
+  application:
+    name: portfolio
+  # Local development: read the repository's .env (absent in containers, hence optional).
+  config:
+    import:
+      - optional:file:../.env[.properties]
+      - optional:file:.env[.properties]
+  autoconfigure:
+    # The admin account lives in the database; no generated in-memory user.
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${POSTGRES_DB:portfolio}
+    username: ${POSTGRES_USER:portfolio}
+    password: ${POSTGRES_PASSWORD:portfolio}
+    hikari:
+      connection-init-sql: SET TIME ZONE 'UTC'
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  mvc:
+    problemdetails:
+      enabled: true
+
+server:
+  port: ${SERVER_PORT:8080}
+  # X-Forwarded-For is read by ClientIpResolver, and only from TRUSTED_PROXIES.
+  forward-headers-strategy: none
+  error:
+    include-stacktrace: never
+    include-message: never
+
+management:
+  endpoints:
+    access:
+      default: none
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      access: read-only
+      show-details: never
+
+app:
+  # Comma-separated list of the site's public origins (CORS).
+  origins: ${APP_ORIGIN:http://localhost:5173}
+  upload-dir: ${UPLOAD_DIR:./data/uploads}
+  auth:
+    jwt-secret: ${JWT_SECRET:}
+    session-duration: 8h
+    # "Se souvenir de moi" on the login page
+    remember-duration: 30d
+    # Time allowed to type the authenticator code after the password (or Google)
+    mfa-duration: 5m
+    cookie-secure: ${COOKIE_SECURE:true}
+    login-attempts-per-minute: 5
+    admin-email: ${ADMIN_EMAIL:}
+    admin-password: ${ADMIN_PASSWORD:}
+    # "Continuer avec Google": OAuth client from the Google Cloud console (empty = button hidden)
+    google:
+      client-id: ${GOOGLE_CLIENT_ID:}
+      client-secret: ${GOOGLE_CLIENT_SECRET:}
+      redirect-uri: ${GOOGLE_REDIRECT_URI:https://portfolio-admin/api/auth/google/callback}
+      admin-url: ${ADMIN_SITE_URL:https://portfolio-admin}
+  tracking:
+    salt: ${TRACKING_SALT:}
+    trusted-proxies: ${TRUSTED_PROXIES:}
+    dedup-window: 30m
+    retention: P13M
+  demo-content: ${DEMO_CONTENT:true}
+  media:
+    # Largest accepted video (MP4, WebM), in megabytes; images stay limited to 5 MB.
+    max-video-mb: ${MEDIA_MAX_VIDEO_MB:100}
+
+# OpenAPI documentation: development only (OPENAPI_ENABLED=true in .env).
+springdoc:
+  api-docs:
+    enabled: ${OPENAPI_ENABLED:false}
+  swagger-ui:
+    enabled: ${OPENAPI_ENABLED:false}

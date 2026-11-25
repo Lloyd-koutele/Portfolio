@@ -1,0 +1,575 @@
+[
+ {
+  "slug": "couverture",
+  "title": "Couverture",
+  "content": {
+   "schemaVersion": 1,
+   "background": {
+    "type": "color",
+    "value": "#ffffff"
+   },
+   "elements": [
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 0,
+     "y": 0,
+     "width": 290,
+     "height": 440,
+     "rotation": 0,
+     "zIndex": 1,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "shape": "rect",
+      "fill": "#ee7d1f",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 60,
+     "y": 70,
+     "width": 230,
+     "height": 300,
+     "rotation": 0,
+     "zIndex": 2,
+     "opacity": 0.55,
+     "locked": false,
+     "props": {
+      "shape": "triangle",
+      "fill": "#f4a35c",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 0,
+     "y": 440,
+     "width": 290,
+     "height": 560,
+     "rotation": 0,
+     "zIndex": 3,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "shape": "rect",
+      "fill": "#111111",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 30,
+     "y": 500,
+     "width": 230,
+     "height": 130,
+     "rotation": 0,
+     "zIndex": 4,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Conception orientée modèles, intégration multi-domaines et itération guidée par les données.",
+      "fontFamily": "Inter",
+      "fontSize": 15,
+      "fontWeight": 400,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ffffff",
+      "lineHeight": 1.45
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 30,
+     "y": 660,
+     "width": 230,
+     "height": 150,
+     "rotation": 0,
+     "zIndex": 5,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Architecture logicielle, tests automatisés, déploiement continu : des systèmes fiables, pensés pour durer.",
+      "fontFamily": "Inter",
+      "fontSize": 15,
+      "fontWeight": 400,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ffffff",
+      "lineHeight": 1.45
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 330,
+     "y": 42,
+     "width": 440,
+     "height": 28,
+     "rotation": 0,
+     "zIndex": 7,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "INGÉNIEUR·E SYSTÈMES & LOGICIEL",
+      "fontFamily": "Inter",
+      "fontSize": 17,
+      "fontWeight": 500,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#111111",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 330,
+     "y": 80,
+     "width": 250,
+     "height": 48,
+     "rotation": 0,
+     "zIndex": 8,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Votre Nom",
+      "fontFamily": "Inter",
+      "fontSize": 34,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#111111",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 520,
+     "y": 80,
+     "width": 50,
+     "height": 48,
+     "rotation": 0,
+     "zIndex": 9,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "↘",
+      "fontFamily": "Inter",
+      "fontSize": 32,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ee7d1f",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 330,
+     "y": 168,
+     "width": 450,
+     "height": 90,
+     "rotation": 0,
+     "zIndex": 10,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Ingénierie",
+      "fontFamily": "Inter",
+      "fontSize": 72,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ee7d1f",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 330,
+     "y": 250,
+     "width": 450,
+     "height": 90,
+     "rotation": 0,
+     "zIndex": 11,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Portfolio",
+      "fontFamily": "Inter",
+      "fontSize": 72,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#111111",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "image",
+     "x": 330,
+     "y": 430,
+     "width": 440,
+     "height": 540,
+     "rotation": 0,
+     "zIndex": 12,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "mediaId": "{{img:workshop}}",
+      "alt": "Anneaux usinés d'une turbine, illustration abstraite orange et noire",
+      "fit": "cover",
+      "borderRadius": 0
+     }
+    }
+   ]
+  },
+  "kind": "COVER"
+ },
+ {
+  "slug": "sommaire",
+  "title": "Sommaire",
+  "content": {
+   "schemaVersion": 1,
+   "background": {
+    "type": "color",
+    "value": "#ffffff"
+   },
+   "elements": [
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 48,
+     "width": 440,
+     "height": 70,
+     "rotation": 0,
+     "zIndex": 1,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Table des",
+      "fontFamily": "Inter",
+      "fontSize": 56,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ee7d1f",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 112,
+     "width": 330,
+     "height": 70,
+     "rotation": 0,
+     "zIndex": 2,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "matières",
+      "fontFamily": "Inter",
+      "fontSize": 56,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#111111",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 335,
+     "y": 132,
+     "width": 34,
+     "height": 34,
+     "rotation": 0,
+     "zIndex": 3,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "shape": "rect",
+      "fill": "#ee7d1f",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 335,
+     "y": 129,
+     "width": 34,
+     "height": 38,
+     "rotation": 0,
+     "zIndex": 4,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "↘",
+      "fontFamily": "Inter",
+      "fontSize": 22,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "center",
+      "color": "#ffffff",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 50,
+     "y": 212,
+     "width": 700,
+     "height": 2,
+     "rotation": 0,
+     "zIndex": 5,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "shape": "rect",
+      "fill": "#e5e5e5",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "toc",
+     "x": 50,
+     "y": 240,
+     "width": 700,
+     "height": 700,
+     "rotation": 0,
+     "zIndex": 6,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "fontFamily": "Inter",
+      "fontSize": 22,
+      "fontWeight": 600,
+      "color": "#111111",
+      "accentColor": "#ee7d1f",
+      "lineHeight": 2,
+      "leaders": true
+     }
+    }
+   ]
+  },
+  "kind": "TABLE_OF_CONTENTS"
+ },
+ {
+  "slug": "contact",
+  "title": "Contact",
+  "content": {
+   "schemaVersion": 1,
+   "background": {
+    "type": "color",
+    "value": "#111111"
+   },
+   "elements": [
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 60,
+     "width": 700,
+     "height": 80,
+     "rotation": 0,
+     "zIndex": 1,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Me",
+      "fontFamily": "Inter",
+      "fontSize": 64,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ee7d1f",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 136,
+     "width": 700,
+     "height": 80,
+     "rotation": 0,
+     "zIndex": 2,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "contacter",
+      "fontFamily": "Inter",
+      "fontSize": 64,
+      "fontWeight": 700,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#ffffff",
+      "lineHeight": 1.3
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "shape",
+     "x": 50,
+     "y": 240,
+     "width": 90,
+     "height": 6,
+     "rotation": 0,
+     "zIndex": 3,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "shape": "rect",
+      "fill": "#ee7d1f",
+      "stroke": "transparent",
+      "strokeWidth": 0,
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 280,
+     "width": 700,
+     "height": 90,
+     "rotation": 0,
+     "zIndex": 4,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Une idée, un projet, une question ? Écrivez-moi : je réponds sous 48 heures.",
+      "fontFamily": "Inter",
+      "fontSize": 21,
+      "fontWeight": 400,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#dddddd",
+      "lineHeight": 1.5
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "button",
+     "x": 50,
+     "y": 420,
+     "width": 320,
+     "height": 62,
+     "rotation": 0,
+     "zIndex": 5,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "label": "Envoyer un e-mail",
+      "href": "mailto:contact@example.com",
+      "fill": "#ee7d1f",
+      "color": "#ffffff",
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "button",
+     "x": 50,
+     "y": 500,
+     "width": 320,
+     "height": 62,
+     "rotation": 0,
+     "zIndex": 6,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "label": "Voir mon profil",
+      "href": "https://www.linkedin.com",
+      "fill": "#ffffff",
+      "color": "#111111",
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "image",
+     "x": 430,
+     "y": 400,
+     "width": 320,
+     "height": 460,
+     "rotation": 0,
+     "zIndex": 7,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "mediaId": "{{img:portrait}}",
+      "alt": "Plans orange et noirs superposés, composition abstraite",
+      "fit": "cover",
+      "borderRadius": 0
+     }
+    },
+    {
+     "id": "{{id}}",
+     "type": "text",
+     "x": 50,
+     "y": 920,
+     "width": 700,
+     "height": 30,
+     "rotation": 0,
+     "zIndex": 8,
+     "opacity": 1,
+     "locked": false,
+     "props": {
+      "text": "Votre Nom — Portfolio d'ingénierie",
+      "fontFamily": "Inter",
+      "fontSize": 14,
+      "fontWeight": 400,
+      "italic": false,
+      "underline": false,
+      "align": "left",
+      "color": "#888888",
+      "lineHeight": 1.3
+     }
+    }
+   ]
+  },
+  "kind": "CONTACT"
+ }
+]
