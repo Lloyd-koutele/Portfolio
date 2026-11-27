@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # --- Build: Gradle wrapper + JDK 21 -------------------------------------------------------------
-FROM eclipse-temurin:21-jdk AS build
+FROM --platform=$BUILDPLATFORM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /workspace
 COPY gradlew settings.gradle build.gradle ./
 COPY gradle gradle
